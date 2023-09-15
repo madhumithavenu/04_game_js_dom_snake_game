@@ -45,13 +45,19 @@ function gameEngine() {
         inputDir = { x: 0, y: 0 };
         alert("Game Over. Press any key to play again!");
         snakeArr = [{ x: 13, y: 15 }];
-        musicSound.play();
+        // musicSound.play();
         score = 0;
     }
     // if food is eaten increment the score and regenerate the food
     if(snakeArr[0].y === food.y && snakeArr[0].x ===food.x){
         foodSound.play();
-        
+        score += 1;
+        if(score>hiscoreval){
+            hiscoreval = score;
+            localStorage.setItem("hiscore", JSON.stringify(hiscoreval));
+            hiscoreBox.innerHTML = "HiScore: " + hiscoreval;
+        }
+
         scoreBox.innerHTML = "Score: " + score;
         snakeArr.unshift({x: snakeArr[0].x + inputDir.x, y: snakeArr[0].y + inputDir.y});
         let a = 2;
